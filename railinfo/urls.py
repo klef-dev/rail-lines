@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import lines_view, stations_view
+from .views import lines_view, stations_view, home_view
 
 urlpatterns = [
-    path('lines/', lines_view),
-    path('stations/', stations_view),
+    path('', home_view),
+    path('api/lines/', lines_view),
+    path('api/stations/', stations_view),
 ]
