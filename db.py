@@ -1,8 +1,7 @@
 import sqlite3
-import json
 from sqlite3 import Error
 
-json_query = lambda rows: json.dumps([list(row) for row in rows])
+json_query = lambda rows: [list(row) for row in rows]
 
 def create_connection(db_file="stations.db"):
     conn = None
@@ -12,7 +11,8 @@ def create_connection(db_file="stations.db"):
         print(e)
     return conn
 
-def query_stations(conn, line_id=None):
+def query_db(line_id=None):
+    conn = create_connection()
     cur = conn.cursor()
     if not line_id:
         cur.execute("SELECT * FROM t")
@@ -22,5 +22,10 @@ def query_stations(conn, line_id=None):
     rows = cur.fetchall()
     return json_query(rows)
 
-def query_lines(conn):
-    pass
+def query_stations( line_id=None):
+    queryset = query_db( line_id)
+    return queryset
+
+def query_lines():
+    queryset = query_db()
+    return queryset
